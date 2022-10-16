@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     function register(Request $request){
+        
 
             $user = new User();
             $user->name=$request->username;

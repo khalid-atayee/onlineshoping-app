@@ -41,11 +41,27 @@ function verify(Request $request){
     $otp = $request->otpForm['value1'].''.$request->otpForm['value2'].''.$request->otpForm['value3'].''.$request->otpForm['value4'];
     $otp = (int)$otp;
     $otp_id = $request->id;
+    
     $otp_data = Otp::find($otp_id);
 
-    
-    echo '<pre>';
-    print_r($otp_data);
+    if($otp_data->otp==$otp){
+        $user = new User();
+        $user->name=$otp_data->name;
+        $user->email=$otp_data->email;
+        $user->password = $otp_data->password;
+        $user->email_verified_at = \Carbon\Carbon::now()->toDateTimeString();
+        $user->save();
+        $otp_data->delete();
+
+        return response()->json(['message'=>'otp is correct'],200);
+    }
+    else
+    {
+        return response()->json(['message'=>'otp is not correct'],400);
+    }
+    // echo '<pre>';
+    // print_r($otp_data->name);
+    // exit;
 
 }
     // function register(Request $request){

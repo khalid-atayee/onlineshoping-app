@@ -15,10 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
+Route::middleware('auth:sanctum')->group(function(){
+
+});
 // Route::post('auth/register',[AuthController::class,'sendOtp']);
 Route::post('auth/register',[AuthController::class,'register']);
 Route::post('auth/verify',[AuthController::class,'verify']);
